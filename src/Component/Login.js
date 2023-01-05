@@ -26,7 +26,8 @@ function Login() {
       .post(" http://localhost:8001/login", state)
       .then((res) => {
         console.log(res);
-        if (res.data === "ok") {
+        localStorage.setItem("token",res.data.token)
+        if (res.status === 200) {
           toast.success("Success");
           navigate("/dashbord");
         } else {
