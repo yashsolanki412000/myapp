@@ -74,6 +74,7 @@ function Dashbord() {
                 <td>{el.name}</td>
                 <td>{el.email}</td>
                 <td>{el.age}</td>
+                
                 <td>
                   {" "}
                   <span>

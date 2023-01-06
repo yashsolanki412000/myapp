@@ -26,12 +26,13 @@ function Login() {
       .post(" http://localhost:8001/login", state)
       .then((res) => {
         console.log(res);
-        localStorage.setItem("token",res.data.token)
+        localStorage.setItem("token", res.data.token);
         if (res.status === 200) {
           toast.success("Success");
-          navigate("/dashbord");
+          navigate("/profile");
         } else {
           setSingin(res.data[0].email);
+          console.log(res.data[0].id);
         }
       })
       .catch((err) => {
