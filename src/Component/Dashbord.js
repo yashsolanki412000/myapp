@@ -20,7 +20,7 @@ function Dashbord() {
       console.log("error ");
     } else {
       setState(data);
-      console.log("get data");
+     
     }
   };
 
@@ -74,7 +74,7 @@ function Dashbord() {
                 <td>{el.name}</td>
                 <td>{el.email}</td>
                 <td>{el.age}</td>
-                
+
                 <td>
                   {" "}
                   <span>

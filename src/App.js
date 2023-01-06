@@ -9,7 +9,6 @@ import { ToastContainer } from "react-toastify";
 import Profile from "./Component/Profile";
 
 function App() {
-  console.log("hello worl");
   return (
     <div className="App">
       <ToastContainer />
