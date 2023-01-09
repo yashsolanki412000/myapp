@@ -18,6 +18,7 @@ function Profile() {
       const images = new FileReader();
       images.onload = (event) => {
           setImage(event.target.result);
+          console.log(event,"event")
       };
        images.readAsDataURL(e.target.files[0]);
      console.log(images)
@@ -48,8 +49,11 @@ function Profile() {
       });
   }
   function formSubmitData(e) {
+    
     e.preventDefault();
     const item = { address, city, image };
+    console.log(item)
+   
     axios
       .put(`http://localhost:8001/updateuser/${id}`, item)
       .then((res) => console.log(res))
@@ -66,8 +70,7 @@ function Profile() {
           </div>
         );
       })}
-
-      <form onSubmit={(e) => formSubmitData(e)}>
+      <form >
         <label className="form-label">Address</label>
         <input
           type="text"
@@ -84,8 +87,8 @@ function Profile() {
         /><br/>
         <input type="file" onChange={(e) => uploadimage(e)} />
       </form>
-      <div className="image">{image.length > 0 ? <img src={image} /> : ""}</div><br/>
-      <button type="submit" className="btn btn-primary">
+      <div className="image"><img src={image} /></div><br/>
+      <button type="submit" className="btn btn-primary" onClick={(e) => formSubmitData(e)}>
         Submit
       </button>
     </div>
