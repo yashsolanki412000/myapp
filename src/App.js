@@ -7,9 +7,9 @@ import Register from "./Component/Register";
 import Login from "./Component/Login";
 import { ToastContainer } from "react-toastify";
 import Profile from "./Component/Profile";
+import CreatePost from "./Component/CreatePost";
 
 function App() {
-  console.log("hello worl");
   return (
     <div className="App">
       <ToastContainer />
@@ -20,6 +20,7 @@ function App() {
         <Route path="/singup" element={<ADDdata />} />
         <Route path="/edit/:id" element={<Edit />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/createpost" element={<CreatePost/>}/>
       </Routes>
     </div>
   );

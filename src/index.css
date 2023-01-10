@@ -24,3 +24,8 @@ code {
 button.btn.btn-secondary{
   margin: 10px;
 }
+.image img{
+  width: 300px;
+    border-radius: 50px;
+    margin-top: 20px;
+}
