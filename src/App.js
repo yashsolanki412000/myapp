@@ -8,6 +8,8 @@ import Login from "./Component/Login";
 import { ToastContainer } from "react-toastify";
 import Profile from "./Component/Profile";
 import CreatePost from "./Component/CreatePost";
+import Post from "./Component/Post";
+import PostDetail from "./Component/PostDetail";
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
         <Route path="/edit/:id" element={<Edit />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/createpost" element={<CreatePost/>}/>
+        <Route path="/post" element={<Post/>}/>
+        <Route path="/postdetail/:slug" element={<PostDetail/>}/>
       </Routes>
     </div>
   );

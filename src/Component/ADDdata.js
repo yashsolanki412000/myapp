@@ -10,7 +10,6 @@ function ADDdata() {
     email: "",
     age: "",
     address: "",
-   
   });
   const handelChange = (e) => {
     const value = e.target.value;

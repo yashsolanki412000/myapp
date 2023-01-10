@@ -23,7 +23,6 @@ function CreatePost() {
         },
       })
       .then((res) => {
-       
         if (res.data.data.length > 0) {
           setUserData(res.data.data);
         }
@@ -35,10 +34,12 @@ function CreatePost() {
     var a = "";
     var b = "abcdefghijklmnopqrstuvwxyz0123456789";
     var c = b.length;
+    
     for (let i = 0; i < length; i++) {
       a += b.charAt(Math.floor(Math.random() * c));
     }
     return a;
+
   };
   const uploadimage = (e) => {
     const images = new FileReader();
@@ -91,7 +92,7 @@ function CreatePost() {
 
           <div className="col-md-6">
             <label className="form-label">Slug</label>
-            {state.slug}
+           
             <input
               type="text"
               name="slug"

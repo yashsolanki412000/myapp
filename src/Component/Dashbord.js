@@ -20,7 +20,6 @@ function Dashbord() {
       console.log("error ");
     } else {
       setState(data);
-     
     }
   };
 
