@@ -23,6 +23,7 @@ function CreatePost() {
         },
       })
       .then((res) => {
+       
         if (res.data.data.length > 0) {
           setUserData(res.data.data);
         }

@@ -35,8 +35,9 @@ function Profile() {
         },
       })
       .then((res) => {
+        console.log(res,"responce")
         if (res.data.data.length > 0) {
-          console.log("resss", res.data.message);
+          // console.log("resss", res.data.message);
           setUserData(res.data.data);
           setId(res.data.data[0].id);
           setEmail(res.data.data[0].email);
@@ -67,7 +68,7 @@ function Profile() {
         );
       })}
 
-      <form onSubmit={(e) => formSubmitData(e)}>
+      <form >
         <label className="form-label">Address</label>
         <input
           type="text"
@@ -84,8 +85,8 @@ function Profile() {
         /><br/>
         <input type="file" onChange={(e) => uploadimage(e)} />
       </form>
-      <div className="image">{image.length > 0 ? <img src={image} /> : ""}</div><br/>
-      <button type="submit" className="btn btn-primary">
+      <div className="image">{ <img src={image} />}</div><br/>
+      <button onClick={(e) => formSubmitData(e)} type="submit" className="btn btn-primary">
         Submit
       </button>
     </div>
