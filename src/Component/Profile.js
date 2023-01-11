@@ -86,7 +86,9 @@ function Profile() {
         <br />
         <input type="file" onChange={(e) => uploadimage(e)} />
       </form>
-      <div className="image"><img src={images} /></div>
+      <div className="image">
+        <img src={images} />
+      </div>
       <br />
       <button
         onClick={(e) => formSubmitData(e)}
