@@ -132,6 +132,8 @@ background: linear-gradient(to bottom, #ef473a, #cb2d3e);
 
 .user__image {
   border-radius: 50%;
+    width: 60px;
+    height: 60px;
 }
 
 .user__info > small {

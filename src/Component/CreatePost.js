@@ -1,7 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function CreatePost() {
+  const navigate = useNavigate();
   const [userData, setUserData] = useState([]);
   const [state, setState] = useState({
     title: "",
@@ -34,12 +36,11 @@ function CreatePost() {
     var a = "";
     var b = "abcdefghijklmnopqrstuvwxyz0123456789";
     var c = b.length;
-    
+
     for (let i = 0; i < length; i++) {
       a += b.charAt(Math.floor(Math.random() * c));
     }
     return a;
-
   };
   const uploadimage = (e) => {
     const images = new FileReader();
@@ -92,7 +93,7 @@ function CreatePost() {
 
           <div className="col-md-6">
             <label className="form-label">Slug</label>
-           
+
             <input
               type="text"
               name="slug"
