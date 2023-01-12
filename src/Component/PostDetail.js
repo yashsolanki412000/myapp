@@ -9,7 +9,10 @@ function PostDetail() {
     message:"",
     status:true,
   })
-  const { slug } = useParams();
+  const [commit,setCommit] = useState([])
+  const { slug,id } = useParams();
+  
+  
   function getuserdetail() {
     axios
       .get("http://localhost:8001/get-user ", {
@@ -18,9 +21,7 @@ function PostDetail() {
         },
       })
       .then((res) => {
-        console.log(res, "responce");
         if (res.data.data.length > 0) {
-          // console.log("resss", res.data.message);
           setOlddata(res.data.data)
         }
       })
@@ -34,11 +35,16 @@ function PostDetail() {
       .then((res) => setNewpost(res.data))
       .catch((err) => console.log(err));
   }
-  console.log(newpost)
   useEffect(() => {
     postdata();
     getuserdetail();
   }, []);
+
+  function getcomment(){
+    axios.get(`http://localhost:8001/usercomment/${id}`)
+    .then((res)=>setCommit(res.data))
+    .catch((err)=>console.log(err))
+  }
 
   const handelSubmit = (e) => {
     e.preventDefault()
@@ -49,10 +55,10 @@ function PostDetail() {
       status:state.status
     }
     axios.post("http://localhost:8001/commentpost",alldata)
-    .then((res)=>console.log(res))
+    .then((res)=>console.log(res.data))
     .catch((err)=>console.log(err))
   }
-
+  getcomment()
   return (
     <div>
       <div className="container">
@@ -93,11 +99,26 @@ function PostDetail() {
         <div>
           <form onSubmit={(e)=>handelSubmit(e)}>
           <input type="text" value={state.message} onChange={(e)=>setState({...state, message:e.target.value})} />
-          <button type="submit" >Submit</button>
+          <button type="submit" className="btn btn-secondary">Submit</button>
           </form>
+        <br/>
+        
+       {
+        commit.map((el)=>{
+          return(
+           <div key={el.userid}><br/>
+              <div>
+                <div className="message">
+                 Message:{el.message}
+                </div>
+                </div>
+            </div>           
+          )
+        })
+       }
+       </div>
         </div>
       </div>
-    </div>
   );
 }
 

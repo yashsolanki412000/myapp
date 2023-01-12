@@ -8,20 +8,30 @@ function Post() {
   useEffect(() => {
     getdata();
   }, []);
-
   function getdata() {
     axios
       .get("http://localhost:8001/newuserdata")
       .then((res) => setState(res.data))
       .catch((err) => console.log(err));
   }
-  const postClick = (slug) => {
-    navigate(`/postdetail/${slug}`);
+  console.log(state)
+  const postClick = (slug,id) => {
+    console.log(id)
+    navigate(`/postdetail/${slug}/${id}`);
   };
 
-  const postDelete = (slug) => {
+  // const postDelete = (slug) => {
+  //   axios
+  //     .delete(`http://localhost:8001/deletepost/${slug}`, {
+  //       method: "DELETE",
+  //     })
+  //     .then((res) => { getdata()})
+  //     .catch((err) => console.log(err));
+ 
+  // };
+   const postDelete = (id) => {
     axios
-      .delete(`http://localhost:8001/deletepost/${slug}`, {
+      .delete(`http://localhost:8001/deletecomment/${id}`, {
         method: "DELETE",
       })
       .then((res) => { getdata()})
@@ -37,7 +47,7 @@ function Post() {
             <div key={item.id}>
               <div
                 className="card"
-                onClick={() => postClick(item.slug)}
+                onClick={() => postClick(item.slug,item.id)}
                 style={{ cursor: "pointer" }}
               >
                 <div className="card__header">
@@ -69,7 +79,7 @@ function Post() {
               </div>
               <button
                 type="submit"
-                onClick={() => postDelete(item.slug)}
+                onClick={(id) => postDelete(item.id)}
                 className="btn btn-primary"
               >
                 DELETE
