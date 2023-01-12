@@ -139,3 +139,9 @@ background: linear-gradient(to bottom, #ef473a, #cb2d3e);
 .user__info > small {
   color: #666;
 }
+.message{
+  background-color: azure;
+    width: 150px;
+    border-radius: 10px;
+    height: 30px
+}

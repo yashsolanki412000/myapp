@@ -24,7 +24,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/createpost" element={<CreatePost/>}/>
         <Route path="/post" element={<Post/>}/>
-        <Route path="/postdetail/:slug" element={<PostDetail/>}/>
+        <Route path="/postdetail/:slug/:id" element={<PostDetail/>}/>
       </Routes>
     </div>
   );
