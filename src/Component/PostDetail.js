@@ -4,15 +4,14 @@ import { useParams } from "react-router-dom";
 
 function PostDetail() {
   const [newpost, setNewpost] = useState([]);
-  const [olddata,setOlddata] = useState([])
-  const [state,setState] = useState({
-    message:"",
-    status:true,
-  })
-  const [commit,setCommit] = useState([])
-  const { slug,id } = useParams();
-  
-  
+  const [olddata, setOlddata] = useState([]);
+  const [state, setState] = useState({
+    message: "",
+    status: true,
+  });
+  const [commit, setCommit] = useState([]);
+  const { slug, id } = useParams();
+
   function getuserdetail() {
     axios
       .get("http://localhost:8001/get-user ", {
@@ -22,7 +21,7 @@ function PostDetail() {
       })
       .then((res) => {
         if (res.data.data.length > 0) {
-          setOlddata(res.data.data)
+          setOlddata(res.data.data);
         }
       })
       .catch((err) => {
@@ -38,27 +37,35 @@ function PostDetail() {
   useEffect(() => {
     postdata();
     getuserdetail();
+    getcomment();
   }, []);
 
-  function getcomment(){
-    axios.get(`http://localhost:8001/usercomment/${id}`)
-    .then((res)=>setCommit(res.data))
-    .catch((err)=>console.log(err))
+  function getcomment() {
+    axios
+      .get(`http://localhost:8001/usercomment/${id}`)
+      .then((res) => setCommit(res.data))
+      .catch((err) => console.log(err));
   }
 
   const handelSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
+
     const alldata = {
-      message:state.message,
-      userid:olddata[0].id,
-      postid:newpost[0].id,
-      status:state.status
+      message: state.message,
+      userid: olddata[0].id,
+      postid: newpost[0].id,
+      status: state.status,
+    };
+    axios
+      .post("http://localhost:8001/commentpost", alldata)
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err));
+
+    if (state.message.length > 0) {
+      getcomment();
     }
-    axios.post("http://localhost:8001/commentpost",alldata)
-    .then((res)=>console.log(res.data))
-    .catch((err)=>console.log(err))
-  }
-  getcomment()
+  };
+
   return (
     <div>
       <div className="container">
@@ -97,29 +104,34 @@ function PostDetail() {
           );
         })}
         <div>
-          <form onSubmit={(e)=>handelSubmit(e)}>
-          <input type="text" value={state.message} onChange={(e)=>setState({...state, message:e.target.value})} />
-          <button type="submit" className="btn btn-secondary">Submit</button>
+          <form onSubmit={(e) => handelSubmit(e)}>
+            <input
+              type="text"
+              value={state.message}
+              onChange={(e) => setState({ ...state, message: e.target.value })}
+            />
+            <button type="submit" className="btn btn-secondary">
+              Submit
+            </button>
           </form>
-        <br/>
-        
-       {
-        commit.map((el)=>{
-          return(
-           <div key={el.userid}><br/>
-              <div>
-                <div className="message">
-                 Message:{el.message}
+          <br />
+          <div style={{ width: "200px", height: "200px", overflow: "auto" }}>
+            {commit.map((el) => {
+              return (
+                <div key={el.userid}>
+                  <br />
+                  User: <div className="message1">{el.username}</div>
+                  <div>
+                    <div className="message">Message:{el.message}</div>
+                  </div>
                 </div>
-                </div>
-            </div>           
-          )
-        })
-       }
-       </div>
+              );
+            })}
+          </div>
         </div>
       </div>
+    </div>
   );
 }
 
-export default PostDetail;
+export default PostDetail;  

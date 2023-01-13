@@ -14,9 +14,9 @@ function Post() {
       .then((res) => setState(res.data))
       .catch((err) => console.log(err));
   }
-  console.log(state)
-  const postClick = (slug,id) => {
-    console.log(id)
+  console.log(state);
+  const postClick = (slug, id) => {
+    console.log(id);
     navigate(`/postdetail/${slug}/${id}`);
   };
 
@@ -27,27 +27,27 @@ function Post() {
   //     })
   //     .then((res) => { getdata()})
   //     .catch((err) => console.log(err));
- 
+
   // };
-   const postDelete = (id) => {
+  const postDelete = (id) => {
     axios
       .delete(`http://localhost:8001/deletecomment/${id}`, {
         method: "DELETE",
       })
-      .then((res) => { getdata()})
+      .then((res) => {
+        getdata();
+      })
       .catch((err) => console.log(err));
- 
   };
   return (
     <div>
-      
       <div className="container">
         {state?.map((item) => {
           return (
             <div key={item.id}>
               <div
                 className="card"
-                onClick={() => postClick(item.slug,item.id)}
+                onClick={() => postClick(item.slug, item.id)}
                 style={{ cursor: "pointer" }}
               >
                 <div className="card__header">
@@ -87,10 +87,7 @@ function Post() {
             </div>
           );
         })}
-  
-  
-</div>
-      
+      </div>
     </div>
   );
 }
