@@ -4,13 +4,15 @@ import { useParams } from "react-router-dom";
 
 function PostDetail() {
   const [newpost, setNewpost] = useState([]);
-  const [olddata, setOlddata] = useState([]);
+  const [olddata, setOlddata] = useState([]); 
   const [state, setState] = useState({
     message: "",
     status: true,
   });
+  const [likeCount,setLikeCount] =useState(0)
   const [commit, setCommit] = useState([]);
   const { slug, id } = useParams();
+  let userDetails;
 
   function getuserdetail() {
     axios
@@ -21,6 +23,7 @@ function PostDetail() {
       })
       .then((res) => {
         if (res.data.data.length > 0) {
+          userDetails = res.data.data;
           setOlddata(res.data.data);
         }
       })
@@ -29,7 +32,6 @@ function PostDetail() {
       });
   }
   function postdata() {
-    console.log();
     axios(`http://localhost:8001/getpostdata/${slug}`)
       .then((res) => setNewpost(res.data))
       .catch((err) => console.log(err));
@@ -38,7 +40,22 @@ function PostDetail() {
     postdata();
     getuserdetail();
     getcomment();
-  }, []);
+    countlike()
+  }, [userDetails, id, slug]);
+
+function likedata(){
+  const data ={
+      likes:true,
+      status:true,
+      userid: olddata[0].id,
+      postid: newpost[0].id,
+  }
+  
+  axios.post("http://localhost:8001/userlike",data)
+  .then((res)=>console.log(res))
+  .catch((err)=>console.log(err))
+
+}
 
   function getcomment() {
     axios
@@ -46,6 +63,20 @@ function PostDetail() {
       .then((res) => setCommit(res.data))
       .catch((err) => console.log(err));
   }
+  const handelLike = () =>{
+   likedata()
+  }
+  
+
+  function countlike(){
+    const countid ={postid:id} 
+    axios.post(`http://localhost:8001/likecount`,countid)
+    .then((res)=>{
+      setLikeCount(res.data[0].count)
+     })
+    .catch((err)=>console.log(err))
+  }
+  
 
   const handelSubmit = (e) => {
     e.preventDefault();
@@ -100,6 +131,7 @@ function PostDetail() {
                   </div>
                 </div>
               </div>
+              <button onClick={handelLike}>{likeCount } Like</button>
             </div>
           );
         })}

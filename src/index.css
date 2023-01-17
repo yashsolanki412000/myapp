@@ -141,12 +141,11 @@ background: linear-gradient(to bottom, #ef473a, #cb2d3e);
 }
 .message{
   background-color: azure;
-    width: 150px;
+    width: auto;
     border-radius: 10px;
-    height: 30px
+    height: auto
 }
 .message1{
- 
-    width: 150px;
-    height: 30px
+    width: auto;
+    height: auto
 }

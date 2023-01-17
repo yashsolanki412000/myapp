@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {  toast } from "react-toastify";
+
 
 function CreatePost() {
   const navigate = useNavigate();
@@ -75,7 +77,7 @@ function CreatePost() {
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   };
-
+    
   return (
     <div>
       <form onSubmit={(e) => handelSubmit(e)}>
