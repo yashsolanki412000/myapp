@@ -1,19 +1,21 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-
+import Heart from "react-heart"
 function PostDetail() {
   const [newpost, setNewpost] = useState([]);
   const [olddata, setOlddata] = useState([]); 
+  const [active,setActive] = useState(false)
   const [state, setState] = useState({
     message: "",
     status: true,
   });
+  
   const [likeCount,setLikeCount] =useState(0)
   const [commit, setCommit] = useState([]);
   const { slug, id } = useParams();
   let userDetails;
-
+  
   function getuserdetail() {
     axios
       .get("http://localhost:8001/get-user ", {
@@ -41,20 +43,29 @@ function PostDetail() {
     getuserdetail();
     getcomment();
     countlike()
+    updatelike()
   }, [userDetails, id, slug]);
-
-function likedata(){
+function  likedata(){
   const data ={
       likes:true,
       status:true,
       userid: olddata[0].id,
       postid: newpost[0].id,
   }
+  console.log(data,"data")
   
   axios.post("http://localhost:8001/userlike",data)
-  .then((res)=>console.log(res))
+  .then((res)=>console.log(res.data))
   .catch((err)=>console.log(err))
 
+}
+
+
+function updatelike(){
+  
+  axios.post("http://localhost:8001/dislike")
+  .then((res)=>console.log(res))
+  .catch((err)=>console.log(err))
 }
 
   function getcomment() {
@@ -131,7 +142,10 @@ function likedata(){
                   </div>
                 </div>
               </div>
-              <button onClick={handelLike}>{likeCount } Like</button>
+              <div style={{ width: "20px", }} onClick={handelLike}>
+              {likeCount } <Heart isActive={active} onClick={() => setActive(!active)}/>
+		        </div>
+              
             </div>
           );
         })}
