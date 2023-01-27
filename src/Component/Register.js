@@ -7,8 +7,6 @@ import "react-toastify/dist/ReactToastify.css";
 function Register() {
   const navigate = useNavigate();
   const [error, setError] = useState(false);
-  const [err, setErr] = useState(false);
-  const [register, setRegister] = useState("");
   const [state, setState] = useState({
     email: "",
     password: "",
